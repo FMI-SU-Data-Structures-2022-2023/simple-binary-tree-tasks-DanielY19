@@ -1,4 +1,4 @@
-cmake_minimum_required (VERSION 3.13)
+cmake_minimum_required (VERSION 3.16)
 
 project ("Week 6: Binary Tree")
 
@@ -10,29 +10,11 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_library(solution STATIC)
 
 target_sources(
-	solution
-	PRIVATE
-		src/solution.cpp
-		src/solution.h
+        solution
+        PRIVATE
+        src/solution.cpp
+        src/solution.h
 )
-
-
-# Executable target for the application
-add_executable(checker)
-
-target_link_libraries(
-	checker
-	PRIVATE
-		solution
-		Catch2::Catch2WithMain
-)
-
-target_sources(
-	checker
-	PRIVATE
-		src/application.cpp
-)
-
 
 #
 # Make Catch2 available. For more information check
@@ -41,9 +23,9 @@ target_sources(
 Include(FetchContent)
 
 FetchContent_Declare(
-  Catch2
-  GIT_REPOSITORY https://github.com/catchorg/Catch2.git
-  GIT_TAG        v3.1.1)
+        Catch2
+        GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+        GIT_TAG        v3.1.1)
 
 FetchContent_MakeAvailable(Catch2)
 
@@ -51,25 +33,25 @@ list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
 
 
 # Executable target for the unit tests
-add_executable(testing)
+add_executable(unit_testing)
 
 target_link_libraries(
-	testing
-	PRIVATE
-		solution
-		Catch2::Catch2WithMain
+        unit_testing
+        PRIVATE
+        solution
+        Catch2::Catch2WithMain
 )
 
-target_include_directories(testing PRIVATE "src")
+target_include_directories(unit_testing PRIVATE "src")
 
 target_sources(
-	testing
-	PRIVATE
-		test/solution.cpp
+        unit_testing
+        PRIVATE
+        test/solution.cpp
 )
 
 
 # Automatically register all tests
 include(CTest)
 include(Catch)
-catch_discover_tests(testing)
+catch_discover_tests(unit_testing)
