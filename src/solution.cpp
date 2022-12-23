@@ -107,7 +107,7 @@ bool isBST(Node *tree) {
 
     if (tree->left && getMax(tree->left) >= tree->key)
         return false;
-    if (tree->right && getMax(tree->right) <= tree->key)
+    if (tree->right && getMin(tree->right) <= tree->key)
         return false;
 
     return isBST(tree->left) && isBST(tree->right);
